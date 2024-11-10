@@ -1,6 +1,28 @@
 console.log('client.js is sourced!');
 
-
+function getCalculations() {
+    console.log("Getting calculations...");
+  
+    // Use axios to GET quotes from our server.
+    // What is the method type: GET
+    // What is the path: '/quotes'
+    axios({
+      method: "GET",
+      url: "/calculations",
+    })
+      .then((response) => {
+        console.log("Data From Server", response.data);
+        renderToDom(response.data); // Will only be called after we get a response.
+      })
+      .catch((error) => {
+        console.log("Oops, GET to /calculations broke!", error);
+      });
+  }
+  function onReady(){
+    getCalculations()
+    console.log('calling onReady')
+  }
+onReady()
 // Create a function to prevent default:
 function onPress(event, operator){
     event.preventDefault(event)
