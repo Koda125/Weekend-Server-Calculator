@@ -4,16 +4,55 @@ let PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(express.static('server/public'));
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended:true}))
 
 // Global variable that will contain all of the
 // calculation objects:
 let calculations = []
+app.post('/calculations', (req, res) => {
+  const {numOne, numTwo, operator} = req.body
+  let result;
+  //Create if's for each operation button.
+  if (operator === '+'){
+    result = numOne + numTwo
+    console.log('Here is the result of your operator "+": ', result)
+  } else if (operator === '-') {
+    result = numOne - numTwo
+    console.log('Here is your result using subtraction: ', result)
+  } else if (operator === '*'){
+    result = numOne * numTwo
+    console.log('Here is your result using multiplication: ', result)
+  } else if (operator === '/'){
+    result = numOne / numTwo
+    console.log('Here is your result using division: ', result)
+  }
+  console.log('What is the magic number: ', result)
+
+  //create a new variable that holds the values the given operation.
+  let newCalculations = 
+    {
+      numOne,
+      operator,
+      numTwo,
+      result
+    }
+  
+  //add new variable into array.
+calculations.push(newCalculations)
+console.log(newCalculations)
+//Send status ok.
+res.sendStatus(201)
 
 
+})
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
-
+app.get('/calculations', (req, res) => {
+  console.log('Touching down on /guesses')
+  res.send(calculations);
+});
 // POST /calculations
 
 
