@@ -34,10 +34,28 @@ const newClacs =
     {
         numOne,
         numTwo,
-        operator
+        operator,
     }
-
-
+    let result; 
+    if (operator === '+'){
+        result = numOne + numTwo
+        console.log('Here is the result of your operator "+": ', result)
+      } else if (operator === '-') {
+        result = numOne - numTwo
+        console.log('Here is your result using subtraction: ', result)
+      } else if (operator === '*'){
+        result = numOne * numTwo
+        console.log('Here is your result using multiplication: ', result)
+      } else if (operator === '/'){
+        result = numOne / numTwo
+        console.log('Here is your result using division: ', result)
+      }
+      const resultHistory = document.getElementById('historyResult')
+    resultHistory.innerHTML += `
+    <ul>
+      <li> ${numOne} ${operator} ${numTwo} = ${result}
+    </ul>
+    `
 axios({
     method: 'POST',
     url: '/calculations',
@@ -45,7 +63,8 @@ axios({
   }).then((response) => {
     console.log("Post to /calculations worked!!")
     // * will retrieve latests quotes and then render them on DOM
-
+    
+    
     // TODO: Clear form
   }).catch((error) => {
     console.log("Oops, POST to /calculations broke: ", error)
@@ -116,7 +135,7 @@ axios({
 
 
 //Clear button function:
-function clearButton(event) {
+function clearButton() {
     console.log('bye bye numbers...')
     document.getElementById('calculatorData').reset()
     

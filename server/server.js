@@ -28,7 +28,12 @@ app.post('/calculations', (req, res) => {
     console.log('Here is your result using division: ', result)
   }
   console.log('What is the magic number: ', result)
-
+  // const resultHistory = document.getElementById('historyResult')
+  // resultHistory.innerHTML += `
+  // <ul>
+  //   <li> ${numOne} ${operator} ${numTwo} = ${result}
+  // </ul>
+  // `
   //create a new variable that holds the values the given operation.
   let newCalculations = 
     {
