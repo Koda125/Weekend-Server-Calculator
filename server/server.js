@@ -9,7 +9,14 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = []
+let calculations = [
+  {
+    numberOne: '',
+    operator: '',
+    numberTwo: '',
+    result: ''
+  }
+]
 app.post('/calculations', (req, res) => {
   const {numOne, numTwo, operator} = req.body
   let result;
@@ -34,7 +41,7 @@ app.post('/calculations', (req, res) => {
   //   <li> ${numOne} ${operator} ${numTwo} = ${result}
   // </ul>
   // `
-  //create a new variable that holds the values the given operation.
+  // create a new variable that holds the values the given operation.
   let newCalculations = 
     {
       numOne,
