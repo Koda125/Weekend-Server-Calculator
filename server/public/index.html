@@ -13,10 +13,10 @@
 
     <form data-testid="calculator" id="calculatorData">
       <input data-testid="numOne" id="numberOne" placeholder="First Number" type="number">
-      <button onClick="onPress(event, '+')">+</button>
-      <button onClick="onPress(event, '-')">-</button>
-      <button onClick="onPress(event, '*')">*</button>
-      <button onClick="onPress(event, '/')">/</button>
+      <button onClick="setOp(event, '+')">+</button>
+      <button onClick="setOp(event, '-')">-</button>
+      <button onClick="setOp(event, '*')">*</button>
+      <button onClick="setOp(event, '/')">/</button>
       <input data-testid="numTwo" id="numberTwo" placeholder="Second Number" type="number">
       <button onClick="handleSubmit(event)">=</button>
       <button onClick="clearButton()">C</button>

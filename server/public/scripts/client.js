@@ -6,7 +6,7 @@ console.log('client.js is sourced!');
 
 let operator; //useable in any function.
 //When op is clicked, will assign var to the correct one clicked.
-function setOp(event, op) {
+function setOperator(event, op) {
     event.preventDefault()
 console.log('what operator was selected? ', op)
     operator = op

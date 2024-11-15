@@ -18,50 +18,19 @@ let calculations = [
   }
 ]
 
-app.post('/calculations', (req, res) => {
-  res.sendStatus(200)
+app.get('/calculations', (req, res) => {
+  res.send(calculations)
+})
+ 
 
-  const newCalculation = req.body //giving variable for easy call back.
+
+
+
+
+app.post('/calculations', (req, res) => {
+  const newCalculation = req.body
   const result = getResult(newCalculation)
   newCalculation.result = result
-
-
-
-
-
-app.post('/calculations', (req, res) => {
-  const {numOne, numTwo, operator} = req.body
-  let result;
-  //Create if's for each operation button.
-  if (operator === '+'){
-    result = numOne + numTwo
-    console.log('Here is the result of your operator "+": ', result)
-  } else if (operator === '-') {
-    result = numOne - numTwo
-    console.log('Here is your result using subtraction: ', result)
-  } else if (operator === '*'){
-    result = numOne * numTwo
-    console.log('Here is your result using multiplication: ', result)
-  } else if (operator === '/'){
-    result = numOne / numTwo
-    console.log('Here is your result using division: ', result)
-  }
-  console.log('What is the magic number: ', result)
-  // const resultHistory = document.getElementById('historyResult')
-  // resultHistory.innerHTML += `
-  // <ul>
-  //   <li> ${numOne} ${operator} ${numTwo} = ${result}
-  // </ul>
-  // `
-  // create a new variable that holds the values the given operation.
-  let newCalculations = [
-    {
-      numOne,
-      operator,
-      numTwo,
-      result
-    }
-  ]
   //add new variable into array.
 calculations.push(newCalculations)
 console.log(newCalculations)
