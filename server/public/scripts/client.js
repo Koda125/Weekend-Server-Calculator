@@ -1,4 +1,5 @@
 onReady()
+const { getElementError } = require("@testing-library/dom");
 const { response } = require("../../server");
 
 console.log('client.js is sourced!');
@@ -39,8 +40,8 @@ function handleSubmit(event) {
     const secondNumInput = Number(document.getElementById('numberTwo')).value
     // send newCalc to server
     let newCalc = {
-        firstNum: firstNumInput,
-        secondNumber: secondNumInput,
+        numberOne: firstNumInput,
+        numberTwo: secondNumInput,
         operator: operator
     }
 axios({
@@ -73,4 +74,25 @@ axios({
   }
 
 //CCreate a function that renders the data to the dom:
+function renderToDom(history) {
+    //Two variables: 1 for Recent Result and 1 for Result History;
+    let historyResult = document.getElementById('resultHistory')
+    let recentResult = document.getElementsById('recentResult')
+    //Console log the results of the two new variables:
+    console.log('Result History: ', historyResult)
+    console.log('Recent Results: ', recentResult)
+    //Replace recent result section before render:
+    recentResult.innerHTML = history[history.length - 1].result
+    //Clear history List on DOM:
+    historyResult.innerHTML = ""
 
+    //Create a loop that cycles through histroy and displays each item in an object:
+
+for(let item of history){
+    console.log('Current item being viewed: ', item)
+    historyResult.innerHTML += `
+        <li> ${item.numberOne} ${item.operator} ${item.numberTwo} </li>
+    `
+}
+
+}
