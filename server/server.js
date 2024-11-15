@@ -11,12 +11,24 @@ app.use(bodyParser.urlencoded({extended:true}))
 // calculation objects:
 let calculations = [
   {
-    numberOne: '',
-    operator: '',
-    numberTwo: '',
-    result: ''
+    numberOne: 10,
+    operator: '+', //Hardcoded example (will remove in end)
+    numberTwo: 20,
+    result: 30
   }
 ]
+
+app.post('/calculations', (req, res) => {
+  res.sendStatus(200)
+
+  const newCalculation = req.body //giving variable for easy call back.
+  const result = getResult(newCalculation)
+  newCalculation.result = result
+
+
+
+
+
 app.post('/calculations', (req, res) => {
   const {numOne, numTwo, operator} = req.body
   let result;
@@ -42,14 +54,14 @@ app.post('/calculations', (req, res) => {
   // </ul>
   // `
   // create a new variable that holds the values the given operation.
-  let newCalculations = 
+  let newCalculations = [
     {
       numOne,
       operator,
       numTwo,
       result
     }
-  
+  ]
   //add new variable into array.
 calculations.push(newCalculations)
 console.log(newCalculations)
@@ -67,6 +79,36 @@ app.get('/calculations', (req, res) => {
 });
 // POST /calculations
 
+  //req.body will equal incoming calculations.
+  //call function to get result - getResult(incoming calculations)
+    // will return a result number
+  // add result number to incCalc as a 'result' key.
+  //Push inCalc to calculations[]
+
+function getResult(calc) {
+  //switch statement to compare the operator.
+    // ex if '+', 
+    // return calc.firstNum + calc.secondNum
+    // 
+    switch (calc.operator){
+      case '+':
+        return calc.firstNum + calc.secondNum
+      //will do:
+      case '-':
+        return calc.firstNum - calc.secondNum
+      //will do if:
+      
+      case '*':
+        return calc.firstNum * calc.secondNum
+      //Or this:
+        
+      case '/':
+      return calc.firstNum / calc.secondNum
+      //If none of the above:
+      default:
+        return NaN
+    }
+}
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
