@@ -11,14 +11,14 @@
   <body>
     <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator" onSubmit="onPress(event)" id="calculatorData">
+    <form data-testid="calculator" id="calculatorData">
       <input data-testid="numOne" id="numberOne" placeholder="First Number" type="number">
       <button onClick="onPress(event, '+')">+</button>
       <button onClick="onPress(event, '-')">-</button>
       <button onClick="onPress(event, '*')">*</button>
       <button onClick="onPress(event, '/')">/</button>
       <input data-testid="numTwo" id="numberTwo" placeholder="Second Number" type="number">
-      <button onClick="submitButton">=</button>
+      <button onClick="handleSubmit(event)">=</button>
       <button onClick="clearButton()">C</button>
     </form>
 

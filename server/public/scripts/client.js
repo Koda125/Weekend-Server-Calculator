@@ -58,119 +58,19 @@ axios({
 .catch((error) => {
     console.log('There has been an error POSTing to /calculations: ', error)
 })
-
+}
 
   // On ready function.
   function onReady(){
     getHistory()
   }
  
+  function clearButton(event) {
+    event.preventDefault()
+    document.getElementById('numberOne').value = ''
+    document.getElementById('numberTwo').value = ''
+    operator = undefined
+  }
 
-function handleSubmit(event) {
-    let numOne = Number(document.getElementById('numberOne').value)
-  let numTwo = Number(document.getElementById('numberTwo').value)
-  const newClacs = 
-    {
-        numOne,
-        numTwo,
-        operator,
-    }
-    console.log(`First input value: ${numOne}, operator choosen: ${operator}, second input value: ${numTwo}`)
-    axios({
-        method: 'POST',
-        url: '/calculations',
-        data: newClacs
-    })
-    .then((response) => {
-        console.log('sucess with POST to /calculations')
-    })
-    .catch((error) => {
-        console.log("Oops, GET to //calculations broke!", error);
-      });
+//CCreate a function that renders the data to the dom:
 
-      // Will retrive most recent history:
-      getHistory()
-}
-  
-// Create a function to prevent default:
-function onPress(event, operator){
-    // Prevent default action of button.
-    event.preventDefault(event)
-    console.log('Preventing the default action')
-    // Define two variables to grab the input values.
-    let numOne = Number(document.getElementById('numberOne').value)
-  let numTwo = Number(document.getElementById('numberTwo').value)
-  console.log(`First input value: ${numOne}, operator choosen: ${operator}, second input value: ${numTwo}`)
-// New object to store data for innerHTML display.
-  const newClacs = 
-    {
-        numOne,
-        numTwo,
-        operator,
-    }
-    // Below will allow viewage of previous calculations, but not in order to pass the test.
-    let result; 
-    // If else statements that target the operator for each if else.
-    if (operator === '+'){
-        result = numOne + numTwo
-        console.log('Here is the result of your operator "+": ', result)
-      } else if (operator === '-') {
-        result = numOne - numTwo
-        console.log('Here is your result using subtraction: ', result)
-      } else if (operator === '*'){
-        result = numOne * numTwo
-        console.log('Here is your result using multiplication: ', result)
-      } else if (operator === '/'){
-        result = numOne / numTwo
-        console.log('Here is your result using division: ', result)
-      }
-      const resultHistory = document.getElementById('historyResult')
-    // use .innerHTML to add in an unordered list for the inputs and button.
-    resultHistory.innerHTML += `
-    <ul>
-      <li> ${numOne} ${operator} ${numTwo} = ${result}
-    </ul>
-    `
-axios({
-    method: 'POST',
-    url: '/calculations',
-    data: newClacs // ? Must always be an object. If you want to send something other than an object, it must be packaged inside of an object then.
-  }).then((response) => {
-    console.log("Post to /calculations worked!!")
-    // * will retrieve latests quotes and then render them on DOM
-    
-    
-    // TODO: Clear form
-  }).catch((error) => {
-    console.log("Oops, POST to /calculations broke: ", error)
-  })
-  getCalculations(newClacs)
-}
-
-//Create function that pulls the data from the newClacs object and render in.
-function renderToDom(history) {
-  console.log("renderToDom() activated, with quotes: ", quotes);
-  
-  const recentResult = document.getElementById("resultRecent");
-  const historyList = document.getElementById("historyResult");
-    console.log('Recent result number is...', history[history.length - 1].result)
-    //replace recentResult on dom:
-    recentResult.innerHTML = history[history.length -1].result
-    historyList.innerHTML += ""
-    for (let item of history) {
-        console.log('Current history item: ', item)
-        historyList.innerHTML += `
-        
-        `
-    }
-
-
-
-
-//Clear button function:
-function clearButton() {
-    console.log('bye bye numbers...')
-    //Command to reset all inputs.
-    document.getElementById('calculatorData').reset()
-    
-}
