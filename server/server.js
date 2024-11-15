@@ -4,8 +4,7 @@ let PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(express.static('server/public'));
-const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({extended:true}))
+
 
 // Global variable that will contain all of the
 // calculation objects:
@@ -30,10 +29,11 @@ app.get('/calculations', (req, res) => {
 app.post('/calculations', (req, res) => {
   const newCalculation = req.body
   const result = getResult(newCalculation)
+  console.log(req.body)
   newCalculation.result = result
   //add new variable into array.
-calculations.push(newCalculations)
-console.log(newCalculations)
+calculations.push(newCalculation)
+console.log(newCalculation)
 //Send status ok.
 res.sendStatus(201)
 
@@ -43,7 +43,7 @@ res.sendStatus(201)
 
 // GET /calculations
 app.get('/calculations', (req, res) => {
-  console.log('Touching down on /guesses')
+  console.log('Touching down on /calculations')
   res.send(calculations);
 });
 // POST /calculations
@@ -61,18 +61,18 @@ function getResult(calc) {
     // 
     switch (calc.operator){
       case '+':
-        return calc.firstNum + calc.secondNum
+        return calc.numberOne + calc.numberTwo
       //will do:
       case '-':
-        return calc.firstNum - calc.secondNum
+        return calc.numberOne - calc.numberTwo
       //will do if:
       
       case '*':
-        return calc.firstNum * calc.secondNum
+        return calc.numberOne * calc.numberTwo
       //Or this:
         
       case '/':
-      return calc.firstNum / calc.secondNum
+      return calc.numberOne / calc.numberTwo
       //If none of the above:
       default:
         return NaN

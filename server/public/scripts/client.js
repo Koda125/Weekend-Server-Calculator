@@ -1,12 +1,12 @@
 onReady()
-const { getElementError } = require("@testing-library/dom");
-const { response } = require("../../server");
+// const { getElementError } = require("@testing-library/dom");
+// const { response } = require("../../server");
 
 console.log('client.js is sourced!');
 
 let operator; //useable in any function.
 //When op is clicked, will assign var to the correct one clicked.
-function setOperator(event, op) {
+function setOp(event, op) {
     event.preventDefault()
 console.log('what operator was selected? ', op)
     operator = op
@@ -24,7 +24,7 @@ function getHistory() {
     .then((response) => {
         console.log('Success on GET request.')
         if(response.data.length > 0)
-        renderToDom()
+        renderToDom(response.data)
     })
     .catch((error) => {
         console.log('Oops, something happened: ', error)
@@ -36,8 +36,8 @@ function getHistory() {
 
 function handleSubmit(event) {
     event.preventDefault()
-    const firstNumInput = Number(document.getElementById('numberOne')).value
-    const secondNumInput = Number(document.getElementById('numberTwo')).value
+    const firstNumInput = Number(document.getElementById('numberOne').value)
+    const secondNumInput = Number(document.getElementById('numberTwo').value)
     // send newCalc to server
     let newCalc = {
         numberOne: firstNumInput,
@@ -76,8 +76,8 @@ axios({
 //CCreate a function that renders the data to the dom:
 function renderToDom(history) {
     //Two variables: 1 for Recent Result and 1 for Result History;
-    let historyResult = document.getElementById('resultHistory')
-    let recentResult = document.getElementsById('recentResult')
+    let historyResult = document.getElementById('historyResult')
+    let recentResult = document.getElementById('resultRecent')
     //Console log the results of the two new variables:
     console.log('Result History: ', historyResult)
     console.log('Recent Results: ', recentResult)
@@ -91,7 +91,7 @@ function renderToDom(history) {
 for(let item of history){
     console.log('Current item being viewed: ', item)
     historyResult.innerHTML += `
-        <li> ${item.numberOne} ${item.operator} ${item.numberTwo} </li>
+        <li> ${item.numberOne} ${item.operator} ${item.numberTwo} = ${item.result} </li>
     `
 }
 
